@@ -16,18 +16,29 @@ html {
   scroll-behavior: smooth;
 }
 
-/* ── Fondo tipo Apple: mesh gradient continuo ── */
+/* ── P-3: Fondo con pseudo-elemento position:fixed
+   Evita el repaint en scroll (background-attachment:fixed fuerza repaint)
+   El ::before es una capa independiente del compositor → 0 repaint en scroll ── */
 body {
+  background: #F5F6FA;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
   background:
     radial-gradient(ellipse at 10% 20%, rgba(123,104,200,0.22) 0%, transparent 48%),
     radial-gradient(ellipse at 90% 15%, rgba(44,62,107,0.15) 0%, transparent 45%),
     radial-gradient(ellipse at 60% 80%, rgba(123,104,200,0.18) 0%, transparent 50%),
     radial-gradient(ellipse at 20% 90%, rgba(44,62,107,0.12) 0%, transparent 40%),
     #F5F6FA;
-  background-attachment: fixed;
 }
 
-/* ── Glass card — Apple frosted ── */
+/* ── Glass card — Apple frosted (solo para secciones grandes) ── */
 .glass-card {
   background: rgba(255, 255, 255, 0.60);
   backdrop-filter: blur(24px) saturate(200%);
@@ -50,9 +61,19 @@ body {
     0 1px 0 rgba(255,255,255,1) inset;
 }
 
+/* P-4/P-9: Glass sólido para elementos pequeños (badges, pills)
+   Sin backdrop-filter → evita GPU stacking contexts innecesarios en el viewport inicial */
+.glass-solid {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.90);
+  box-shadow:
+    0 4px 20px rgba(123, 104, 200, 0.14),
+    0 1px 0 rgba(255,255,255,1) inset;
+}
+
 /* ── Glassmorphism para navbar ── */
 .glass-nav {
-  background: rgba(245, 246, 250, 0.80);
+  background: rgba(245, 246, 250, 0.92);
   backdrop-filter: blur(20px) saturate(200%);
   -webkit-backdrop-filter: blur(20px) saturate(200%);
   border-bottom: 1px solid rgba(255,255,255,0.7);
@@ -73,12 +94,14 @@ body {
   transition-property: opacity, transform;
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   transition-duration: 700ms;
+  /* P-5: will-change se aplica dinámicamente desde useInView via JS,
+     no globalmente aquí — evita capas de GPU para elementos fuera del viewport */
 }
 
-.anim-up   { transform: translateY(44px); }
-.anim-left { transform: translateX(-36px); }
-.anim-right{ transform: translateX(36px); }
-.anim-fade { transform: scale(0.97); }
+.anim-up    { transform: translateY(44px); }
+.anim-left  { transform: translateX(-36px); }
+.anim-right { transform: translateX(36px); }
+.anim-fade  { transform: scale(0.97); }
 
 .anim.visible {
   opacity: 1;
@@ -91,3 +114,34 @@ body {
 .delay-300 { transition-delay: 300ms; }
 .delay-400 { transition-delay: 400ms; }
 .delay-500 { transition-delay: 500ms; }
+
+/* ── Keyframes globales ── */
+@keyframes scrollBar {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateY(250%); opacity: 0; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+/* ── Respeta prefers-reduced-motion (accesibilidad vestibular) ── */
+@media (prefers-reduced-motion: reduce) {
+  .anim {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    will-change: auto !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

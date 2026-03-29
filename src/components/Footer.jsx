@@ -3,13 +3,13 @@ import { useInView } from '../hooks/useInView';
 
 function GAMALogoLight() {
   return (
-    <div className="flex items-center gap-2.5">
-      <div className="w-7 h-7 bg-white/10 border border-white/20 rounded-lg flex items-center justify-center flex-shrink-0 backdrop-blur-sm">
-        <div className="w-3 h-3 bg-acento rounded-sm" />
+    <div className="flex items-center gap-2.5" aria-label="GAMA Agostinelli">
+      <div className="w-7 h-7 bg-white/10 border border-white/20 rounded-lg flex items-center justify-center flex-shrink-0 backdrop-blur-sm" aria-hidden="true">
+        <div className="w-3 h-3 bg-acento rounded-sm" aria-hidden="true" />
       </div>
       <div className="flex flex-col leading-none">
         <span className="font-syne font-extrabold text-sm tracking-wide text-white">GAMA</span>
-        <span className="font-barlow font-light text-[10px] tracking-widest text-white/40">AGOSTINELLI</span>
+        <span className="font-barlow font-light text-[10px] tracking-widest text-white/50">AGOSTINELLI</span>
       </div>
     </div>
   );
@@ -29,8 +29,8 @@ export default function Footer() {
 
   return (
     <footer style={{ background: 'linear-gradient(180deg, #1e2d4f 0%, #2C3E6B 100%)' }}>
-      {/* Separador */}
-      <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+      {/* Separador decorativo */}
+      <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" aria-hidden="true" />
 
       {/* CTA Banner */}
       <div
@@ -42,7 +42,7 @@ export default function Footer() {
             <p className="font-syne text-white text-xl md:text-2xl tracking-tight">
               ¿Listo para tener una web que vende?
             </p>
-            <p className="font-barlow font-light text-white/35 mt-1 tracking-wide">
+            <p className="font-barlow font-light text-white/50 mt-1 tracking-wide">
               Respondemos en menos de 24 horas.
             </p>
           </div>
@@ -62,19 +62,21 @@ export default function Footer() {
       >
         <GAMALogoLight />
 
-        <nav className="flex flex-wrap justify-center gap-6">
+        {/* A-5: aria-label en el nav del footer */}
+        <nav className="flex flex-wrap justify-center gap-6" aria-label="Navegación secundaria">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="font-barlow font-light text-white/35 hover:text-white transition-all duration-200 text-sm tracking-wide"
+              className="font-barlow font-light text-white/50 hover:text-white transition-all duration-200 text-sm tracking-wide"
             >
               {link.label}
             </a>
           ))}
         </nav>
 
-        <p className="font-barlow font-light text-white/20 text-sm">
+        {/* A-6: contraste mejorado — /20 → /50 para pasar WCAG AA */}
+        <p className="font-barlow font-light text-white/50 text-sm">
           © 2025 GAMA Agostinelli
         </p>
       </div>

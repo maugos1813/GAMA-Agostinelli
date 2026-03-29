@@ -2,12 +2,108 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/maudevtechicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GAMA Agostinelli — Diseño web para clínicas</title>
+
+    <!-- ── Favicon & PWA ── -->
+    <link rel="icon" type="image/svg+xml" href="/LogoMaudevTech.svg" />
+    <link rel="icon" type="image/png" href="/maudevtechicon.png" />
+    <link rel="apple-touch-icon" href="/maudevtechicon.png" />
+    <meta name="theme-color" content="#2C3E6B" />
+
+    <!-- ── SEO básico ── -->
+    <title>GAMA Agostinelli | Diseño web para clínicas dentales y veterinarias</title>
+    <meta name="description" content="GAMA Agostinelli — Diseño web premium para clínicas dentales y veterinarias en Argentina. Landing pages y sitios web que convierten visitas en pacientes. Cotizá sin cargo." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://gamaagostinelli.com/" />
+
+    <!-- ── Hreflang ── -->
+    <link rel="alternate" hreflang="es-AR" href="https://gamaagostinelli.com/" />
+    <link rel="alternate" hreflang="es" href="https://gamaagostinelli.com/" />
+
+    <!-- ── Open Graph ── -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://gamaagostinelli.com/" />
+    <meta property="og:title" content="GAMA Agostinelli | Diseño web para clínicas dentales y veterinarias" />
+    <meta property="og:description" content="Landing pages y sitios web premium que convierten visitas en pacientes. Especializados en clínicas dentales y veterinarias en Argentina." />
+    <meta property="og:image" content="https://gamaagostinelli.com/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:site_name" content="GAMA Agostinelli" />
+
+    <!-- ── Twitter Card ── -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="GAMA Agostinelli | Diseño web para clínicas" />
+    <meta name="twitter:description" content="Landing pages premium para clínicas dentales y veterinarias en Argentina." />
+    <meta name="twitter:image" content="https://gamaagostinelli.com/og-image.jpg" />
+
+    <!-- ── Content Security Policy (B-1/B-4) ── -->
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self';
+      script-src 'self' 'unsafe-inline';
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+      font-src 'self' https://fonts.gstatic.com;
+      img-src 'self' data: https://images.unsplash.com https://gamaagostinelli.com;
+      connect-src 'self' https://api.web3forms.com;
+      frame-ancestors 'none';
+      base-uri 'self';
+      form-action 'self' https://api.web3forms.com;
+    " />
+
+    <!-- ── Fuentes: preconnect + carga no bloqueante (B-2/B-3) ── -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Barlow+Condensed:wght@300;400&display=swap" rel="stylesheet" />
+    <link
+      id="google-fonts"
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Barlow+Condensed:wght@300;400&display=swap"
+      media="print"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Barlow+Condensed:wght@300;400&display=swap"
+      />
+    </noscript>
+    <!-- Script separado para activar fuentes (compatible con CSP via 'unsafe-inline') -->
+    <script>
+      var f = document.getElementById('google-fonts');
+      if (f) f.addEventListener('load', function() { this.media = 'all'; });
+    </script>
+
+    <!-- ── Preload de la imagen LCP con srcset responsive + WebP (P-1/P-2) ── -->
+    <link
+      rel="preload"
+      as="image"
+      href="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=900&q=80&fm=webp"
+      imagesrcset="
+        https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=480&q=80&fm=webp 480w,
+        https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=768&q=80&fm=webp 768w,
+        https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=900&q=80&fm=webp 900w
+      "
+      imagesizes="(max-width: 1023px) 100vw, 50vw"
+      fetchpriority="high"
+    />
+
+    <!-- ── Datos estructurados JSON-LD ── -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "GAMA Agostinelli",
+      "description": "Agencia de diseño web especializada en clínicas dentales y veterinarias en Argentina",
+      "url": "https://gamaagostinelli.com",
+      "logo": "https://gamaagostinelli.com/maudevtechicon.png",
+      "serviceType": ["Diseño web", "Landing pages", "Mantenimiento web"],
+      "areaServed": { "@type": "Country", "name": "Argentina" },
+      "knowsAbout": ["Clínicas dentales", "Veterinarias", "Diseño web", "Landing pages"],
+      "offers": [
+        { "@type": "Offer", "name": "Landing Page",           "price": "299", "priceCurrency": "USD" },
+        { "@type": "Offer", "name": "Sitio Web",              "price": "699", "priceCurrency": "USD" },
+        { "@type": "Offer", "name": "Sitio + Mantenimiento",  "price": "99",  "priceCurrency": "USD" }
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
